@@ -1,5 +1,5 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
@@ -7,10 +7,11 @@ module.exports = {
     mode: 'development',
 
     entry: {
-        app: './src/app.js',
+        index: './src/javascripts/index.js',
     },
     output: {
-        path: path.resolve(__dirname, 'dist'), // publicPath: "/",
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/dist',
         filename: 'bundle.js',
     },
 
@@ -30,7 +31,7 @@ module.exports = {
                 },
             },
             {
-                test: /\.css$/i,
+                test: /\.(sa|sc|c)ss$/i,
                 use: ['style-loader', 'css-loader', 'sass-loader'],
             },
             {
@@ -46,16 +47,13 @@ module.exports = {
 
     plugins: [
         new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: 'src/app.html',
-        }),
         new webpack.HotModuleReplacementPlugin(),
     ],
     resolve: {
         alias: {
-            '@css': path.resolve(__dirname, 'src/'), //경로 바꾸기
-            '@js': path.resolve(__dirname, 'src/'),
-            '@assets': path.resolve(__dirname, 'src/'),
+            '@css': path.resolve(__dirname, 'src/stylesheets'),
+            '@js': path.resolve(__dirname, 'src/javascripts'),
+            '@images': path.resolve(__dirname, 'src/images'),
         },
     },
 };
